@@ -1,0 +1,41 @@
+{
+  "name": "vue3-vite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "author": {
+    "name": "Jason Cubic",
+    "email": "jcubic@gmail.com"
+  },
+  "license": "ISC",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "yarn run preview:es",
+    "preview:es": "yarn build && vite preview --open /preview-es.html",
+    "preview:umd": "yarn build && vite preview --open /preview-umd.html",
+    "lint": "eslint --ext .js,.vue .",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "dependencies": {
+    "vue": "^3.2.27"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.0.1",
+    "eslint-vue-airbnb": "*",
+    "jest-vue-test-utils": "*",
+    "vite": "^2.7.12"
+  },
+  "bundledDependencies": [
+    "vite",
+    "@vitejs/plugin-vue",
+    "vite-plugin-singlefile"
+  ],
+  "babel": {
+    "extends": "jest-vue-test-utils/.babelrc.json"
+  },
+  "jest": {
+    "preset": "jest-vue-test-utils"
+  }
+}

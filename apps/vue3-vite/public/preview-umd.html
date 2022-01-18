@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>plain html umd preview</title>
+    <style>
+      #app {
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 60px;
+      }
+    </style>
+    <script>
+      function injectStylesAndAttachCustomElementToDom(el) {
+        if (el.shadowRoot) {
+          // inject styles into the shadow root https://v3.vuejs.org/guide/web-components.html#sfc-as-custom-element
+          const styleLink = document.createElement('link');
+          styleLink.setAttribute('rel', 'stylesheet');
+          styleLink.setAttribute('href', './style.css');
+          el.shadowRoot.appendChild(styleLink);
+        }
+        document.querySelector('#app').appendChild(el);
+      }
+    </script>
+    <script src="https://unpkg.com/vue@3.2.27/dist/vue.global.js"></script>
+    <script src="./vue3-vite.umd.js"></script>
+  </head>
+  <body>
+    <div id="app"><img alt="Vue logo" src="https://v3.vuejs.org/logo.png"></div>
+    <script>
+      // https://v3.vuejs.org/guide/web-components.html#definecustomelement
+      const HelloWorld = Vue.defineCustomElement(this['vue3-vite'].HelloWorld);
+      // https://developer.mozilla.org/en-US/docs/Web/API/Window/customElements
+      window.customElements.define('hello-world', HelloWorld);
+      const helloWorldComponent = new HelloWorld({ msg: 'Hello Vue 3 + Universal Module Definition (UMD)' });
+      injectStylesAndAttachCustomElementToDom(helloWorldComponent);
+    </script>
+  </body>
+</html>

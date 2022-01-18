@@ -1,0 +1,27 @@
+{
+  "name": "jest-vue-test-utils",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": {
+    "name": "Jason Cubic",
+    "email": "jcubic@gmail.com"
+  },
+  "license": "ISC",
+  "files": [
+    ".babelrc.json",
+    "jest-preset.json"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/plugin-transform-runtime": "^7.16.8",
+    "@babel/preset-env": "^7.16.8",
+    "@vue/test-utils": "^2.0.0-rc.18",
+    "@vue/vue3-jest": "^27.0.0-alpha.4",
+    "babel-jest": "^27.4.6",
+    "jest": "^27.4.7"
+  }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>plain html es module preview</title>
+    <style>
+      #app {
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 60px;
+      }
+    </style>
+    <script>
+      function injectStylesAndAttachCustomElementToDom(el) {
+        if (el.shadowRoot) {
+          // inject styles into the shadow root https://v3.vuejs.org/guide/web-components.html#sfc-as-custom-element
+          const styleLink = document.createElement('link');
+          styleLink.setAttribute('rel', 'stylesheet');
+          styleLink.setAttribute('href', './style.css');
+          el.shadowRoot.appendChild(styleLink);
+        }
+        document.querySelector('#app').appendChild(el);
+      }
+    </script>
+    <!-- importmap polyfill https://github.com/guybedford/es-module-shims -->
+    <script async src="https://unpkg.com/es-module-shims@1.4.1/dist/es-module-shims.js"></script>
+    <!-- https://wicg.github.io/import-maps/#import-map -->
+    <script type="importmap">
+      { "imports": { "vue": "https://unpkg.com/vue@3.2.27/dist/vue.esm-browser.js" } }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <img alt="Vue logo" src="https://v3.vuejs.org/logo.png">
+    </div>
+    <script type="module">
+      import { defineCustomElement } from 'vue';
+      import esModuleLib from './vue3-vite.es.js';
+      // https://v3.vuejs.org/guide/web-components.html#definecustomelement
+      const HelloWorld = defineCustomElement(esModuleLib.HelloWorld);
+      // https://developer.mozilla.org/en-US/docs/Web/API/Window/customElements
+      window.customElements.define('hello-world', HelloWorld);
+      const helloWorldComponent = new HelloWorld({ msg: 'Hello Vue 3 + ES6 Module' });
+      injectStylesAndAttachCustomElementToDom(helloWorldComponent);
+    </script>
+  </body>
+</html>

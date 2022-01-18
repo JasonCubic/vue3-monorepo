@@ -1,20 +1,28 @@
 {
-  "name": "turborepo-basic-shared",
-  "version": "0.0.0",
+  "name": "vue3-monorepo",
+  "version": "1.0.0",
   "private": true,
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "build": "cross-env FORCE_COLOR=1 turbo run build",
+    "dev": "cross-env FORCE_COLOR=1 turbo run dev --parallel",
+    "lint": "cross-env FORCE_COLOR=1 turbo run lint",
+    "test": "cross-env FORCE_COLOR=1 turbo run test",
+    "preview": "yarn run preview:es",
+    "preview:es": "cross-env FORCE_COLOR=1 turbo run preview:es --scope=*vue3-vite*",
+    "preview:umd": "cross-env FORCE_COLOR=1 turbo run preview:umd --scope=*vue3-vite*",
+    "clean": "npx rimraf ./**/{node_modules,.eslintcache,apps/vue3-vite/dist,.turbo}"
   },
   "devDependencies": {
-    "prettier": "^2.5.1",
-    "turbo": "latest"
+    "cross-env": "^7.0.3",
+    "turbo": "^1.0.28"
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
   },
   "turbo": {
     "pipeline": {
@@ -23,8 +31,7 @@
           "^build"
         ],
         "outputs": [
-          "dist/**",
-          ".next/**"
+          "dist/**"
         ]
       },
       "lint": {
@@ -32,11 +39,24 @@
       },
       "dev": {
         "cache": false
+      },
+      "test": {
+        "outputs": []
+      },
+      "preview:es": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": false,
+        "outputs": []
+      },
+      "preview:umd": {
+        "dependsOn": [
+          "build"
+        ],
+        "cache": false,
+        "outputs": []
       }
     }
-  },
-  "engines": {
-    "npm": ">=7.0.0",
-    "node": ">=14.0.0"
   }
 }
